@@ -134,6 +134,10 @@ public class MockConnection implements ConnectionBase {
     }
 
     @Override
+    public void addHeader(String headerName, String headerValue) {
+    }
+
+    @Override
     public Gson getGson() {
         return new Gson();
     }
