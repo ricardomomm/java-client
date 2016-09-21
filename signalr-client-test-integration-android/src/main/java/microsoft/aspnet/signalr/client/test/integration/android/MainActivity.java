@@ -6,21 +6,6 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.test.integration.android;
 
-import java.net.URI;
-import java.util.List;
-
-import microsoft.aspnet.signalr.client.android.test.integration.R;
-import microsoft.aspnet.signalr.client.test.integration.ApplicationContext;
-import microsoft.aspnet.signalr.client.test.integration.framework.TestCase;
-import microsoft.aspnet.signalr.client.test.integration.framework.TestExecutionCallback;
-import microsoft.aspnet.signalr.client.test.integration.framework.TestGroup;
-import microsoft.aspnet.signalr.client.test.integration.framework.TestResult;
-import microsoft.aspnet.signalr.client.test.integration.tests.MiscTests;
-
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -39,6 +24,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
+import microsoft.aspnet.signalr.client.android.test.integration.R;
+import microsoft.aspnet.signalr.client.test.integration.ApplicationContext;
+import microsoft.aspnet.signalr.client.test.integration.framework.TestCase;
+import microsoft.aspnet.signalr.client.test.integration.framework.TestExecutionCallback;
+import microsoft.aspnet.signalr.client.test.integration.framework.TestGroup;
+import microsoft.aspnet.signalr.client.test.integration.framework.TestResult;
+import microsoft.aspnet.signalr.client.test.integration.tests.MiscTests;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends Activity {
@@ -172,14 +173,21 @@ public class MainActivity extends Activity {
 						protected Void doInBackground(Void... params) {
 							try {
 								String url = ApplicationContext.getLogPostURL();
-								if (url != null && url.trim() != "") {
+								if (url != null && !url.trim().isEmpty()) {
 									url = url + "?platform=android";
-									HttpPost post = new HttpPost();
-									post.setEntity(new StringEntity(postContent, "utf-8"));
-									
-									post.setURI(new URI(url));
-									
-									new DefaultHttpClient().execute(post);
+
+                                    URL dest = new URL(url);
+                                    final HttpURLConnection urlConnection = (HttpURLConnection) dest.openConnection();
+                                    urlConnection.setRequestMethod("POST");
+                                    String postData = URLEncoder.encode("postContent", "UTF-8");
+
+                                    OutputStream os = urlConnection.getOutputStream();
+                                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                                    bufferedWriter.write(postData);
+                                    bufferedWriter.flush();
+                                    bufferedWriter.close();
+                                    urlConnection.disconnect();
+                                    os.close();
 								}
 							} catch (Exception e) {
 								// Wasn't able to post the data. Do nothing
@@ -246,7 +254,7 @@ public class MainActivity extends Activity {
 				if (e != null) {
 					StringBuilder sb = new StringBuilder();
 					while (e != null) {
-						sb.append(e.getClass().getSimpleName() + ": ");
+						sb.append(e.getClass().getSimpleName()).append(": ");
 						sb.append(e.getMessage());
 						sb.append(" // ");
 						e = e.getCause();
@@ -287,7 +295,7 @@ public class MainActivity extends Activity {
 
 	private void log(String title, String content) {
 		String message = title + " - " + content;
-		Log.d("SIGNALR-TEST-INTEGRATION", message);
+		Log.d("SIGNALR-TESTINTEGRATION", message);
 
 		mLog.append(message);
 		mLog.append('\n');

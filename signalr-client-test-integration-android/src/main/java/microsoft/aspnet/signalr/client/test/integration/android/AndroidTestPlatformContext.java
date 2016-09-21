@@ -40,7 +40,7 @@ public class AndroidTestPlatformContext implements TestPlatformContext {
             
             @Override
             public void log(String message, LogLevel level) {
-                Log.d("SignalR-Integration-Test", level.toString() + ": " + message);
+                Log.d("SignalR-IntegrationTest", level.toString() + ": " + message);
             }
         };
     }
