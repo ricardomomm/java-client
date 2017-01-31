@@ -6,21 +6,22 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.hubs;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import microsoft.aspnet.signalr.client.Action;
+import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.ConnectionState;
 import microsoft.aspnet.signalr.client.InvalidStateException;
 import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
-import microsoft.aspnet.signalr.client.Connection;
+import microsoft.aspnet.signalr.client.transport.LongPollingTransport;
 
 /**
  * Represents a SignalRConnection that implements the Hubs protocol
@@ -49,7 +50,7 @@ public class HubConnection extends Connection {
 
     /**
      * Initialized the connection
-     * 
+     *
      * @param url
      *            The connection URL
      */
@@ -59,7 +60,7 @@ public class HubConnection extends Connection {
 
     /**
      * Initializes the connection
-     * 
+     *
      * @param url
      *            The connection URL
      * @param useDefaultUrl
@@ -74,19 +75,22 @@ public class HubConnection extends Connection {
         super.onReceived(message);
 
         log("Processing message", LogLevel.Information);
-        if (getState() == ConnectionState.Connected) {
+        final ConnectionState state = getState();
+        if (state == ConnectionState.Connected || (
+                LongPollingTransport.class.equals(getTransportClass())
+                        && state == ConnectionState.Reconnecting)) {
             if (message.isJsonObject() && message.getAsJsonObject().has("I")) {
                 log("Getting HubResult from message", LogLevel.Verbose);
                 HubResult result = mGson.fromJson(message, HubResult.class);
-    
+
                 String id = result.getId().toLowerCase(Locale.getDefault());
                 log("Result Id: " + id, LogLevel.Verbose);
                 log("Result Data: " + result.getResult(), LogLevel.Verbose);
-    
+
                 if (mCallbacks.containsKey(id)) {
                     log("Get and remove callback with id: " + id, LogLevel.Verbose);
                     Action<HubResult> callback = mCallbacks.remove(id);
-    
+
                     try {
                         log("Execute callback for message", LogLevel.Verbose);
                         callback.run(result);
@@ -97,10 +101,10 @@ public class HubConnection extends Connection {
             } else {
                 HubInvocation invocation = mGson.fromJson(message, HubInvocation.class);
                 log("Getting HubInvocation from message", LogLevel.Verbose);
-    
+
                 String hubName = invocation.getHub().toLowerCase(Locale.getDefault());
                 log("Message for: " + hubName, LogLevel.Verbose);
-    
+
                 if (mHubs.containsKey(hubName)) {
                     HubProxy hubProxy = mHubs.get(hubName);
                     if (invocation.getState() != null) {
@@ -110,10 +114,10 @@ public class HubConnection extends Connection {
                             hubProxy.setState(key, value);
                         }
                     }
-    
+
                     String eventName = invocation.getMethod().toLowerCase(Locale.getDefault());
                     log("Invoking event: " + eventName + " with arguments " + arrayToString(invocation.getArgs()), LogLevel.Verbose);
-    
+
                     try {
                         hubProxy.invokeEvent(eventName, invocation.getArgs());
                     } catch (Exception e) {
@@ -188,7 +192,7 @@ public class HubConnection extends Connection {
 
     /**
      * Creates a proxy for a hub
-     * 
+     *
      * @param hubName
      *            The hub name
      * @return The proxy for the hub
@@ -222,7 +226,7 @@ public class HubConnection extends Connection {
 
     /**
      * Registers a callback
-     * 
+     *
      * @param callback
      *            The callback to register
      * @return The callback Id
@@ -237,7 +241,7 @@ public class HubConnection extends Connection {
 
     /**
      * Removes a callback
-     * 
+     *
      * @param callbackId
      *            Id for the callback to remove
      */
@@ -248,7 +252,7 @@ public class HubConnection extends Connection {
 
     /**
      * Generates a standarized URL
-     * 
+     *
      * @param url
      *            The base URL
      * @param useDefaultUrl

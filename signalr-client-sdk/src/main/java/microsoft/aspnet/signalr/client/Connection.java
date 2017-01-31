@@ -6,14 +6,14 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import microsoft.aspnet.signalr.client.http.Request;
 import microsoft.aspnet.signalr.client.transport.AutomaticTransport;
@@ -22,7 +22,6 @@ import microsoft.aspnet.signalr.client.transport.ConnectionType;
 import microsoft.aspnet.signalr.client.transport.DataResultCallback;
 import microsoft.aspnet.signalr.client.transport.NegotiationResponse;
 import microsoft.aspnet.signalr.client.transport.TransportHelper;
-import microsoft.aspnet.signalr.client.Logger;
 
 /**
  * Represents a basic SingalR connection
@@ -834,4 +833,12 @@ public class Connection implements ConnectionBase {
             }
         }
     }
+
+    public Class getTransportClass() {
+        if (mTransport == null) {
+            return null;
+        }
+        return mTransport.getClass();
+    }
+
 }
