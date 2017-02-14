@@ -25,12 +25,12 @@ import microsoft.aspnet.signalr.client.http.StreamResponse;
  */
 class NetworkRunnable implements Runnable {
 
-    HttpURLConnection mConnection = null;
-    InputStream mResponseStream = null;
-    Logger mLogger;
-    Request mRequest;
-    HttpConnectionFuture mFuture;
-    ResponseCallback mCallback;
+    private HttpURLConnection mConnection = null;
+    private InputStream mResponseStream = null;
+    private final Logger mLogger;
+    private final Request mRequest;
+    private final HttpConnectionFuture mFuture;
+    private final ResponseCallback mCallback;
 
     Object mCloseLock = new Object();
 

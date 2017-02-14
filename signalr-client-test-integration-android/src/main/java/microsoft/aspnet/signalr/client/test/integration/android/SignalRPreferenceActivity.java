@@ -9,8 +9,6 @@ package microsoft.aspnet.signalr.client.test.integration.android;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-import microsoft.aspnet.signalr.client.android.test.integration.R;
-
 /**
  * A {@link android.preference.PreferenceActivity} that presents a set of application settings.
  */

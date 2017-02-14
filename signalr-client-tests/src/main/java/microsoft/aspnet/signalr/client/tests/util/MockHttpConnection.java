@@ -19,10 +19,10 @@ import microsoft.aspnet.signalr.client.http.Request;
 
 public class MockHttpConnection implements HttpConnection {
 
-    Semaphore mSemaphore = new Semaphore(0);
+    final Semaphore mSemaphore = new Semaphore(0);
 
-    Queue<RequestEntry> mRequests = new ConcurrentLinkedQueue<RequestEntry>();
-    List<Thread> mThreads = new ArrayList<Thread>();
+    final Queue<RequestEntry> mRequests = new ConcurrentLinkedQueue<RequestEntry>();
+    final List<Thread> mThreads = new ArrayList<Thread>();
 
     @Override
     public HttpConnectionFuture execute(Request request, ResponseCallback responseCallback) {
@@ -44,7 +44,7 @@ public class MockHttpConnection implements HttpConnection {
         public HttpConnectionFuture future;
         public MockResponse response;
         private boolean mResponseTriggered = false;
-        private Object mSync = new Object();
+        private final Object mSync = new Object();
 
         public void finishRequest() {
             Thread t = new Thread(new Runnable() {

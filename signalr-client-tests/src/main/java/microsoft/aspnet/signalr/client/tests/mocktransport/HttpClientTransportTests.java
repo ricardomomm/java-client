@@ -49,9 +49,7 @@ public abstract class HttpClientTransportTests {
 
         Utils.finishMessage(entry);
 
-        NegotiationResponse negotiationResponse = null;
-
-        negotiationResponse = future.get();
+        NegotiationResponse negotiationResponse = future.get();
 
         assertEquals(negotiation.getConnectionId(), negotiationResponse.getConnectionId());
         assertEquals(negotiation.getConnectionToken(), negotiationResponse.getConnectionToken());

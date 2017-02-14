@@ -46,7 +46,7 @@ public class Connection implements ConnectionBase {
 
     private String mQueryString;
 
-    private Map<String, String> mHeaders = new HashMap<String, String>();
+    private final Map<String, String> mHeaders = new HashMap<String, String>();
 
     private UpdateableCancellableFuture<Void> mConnectionFuture;
 
@@ -82,9 +82,9 @@ public class Connection implements ConnectionBase {
 
     protected Gson mGson;
 
-    private Object mStateLock = new Object();
+    private final Object mStateLock = new Object();
 
-    private Object mStartLock = new Object();
+    private final Object mStartLock = new Object();
 
     /**
      * Initializes the connection with an URL
@@ -136,7 +136,7 @@ public class Connection implements ConnectionBase {
         }
 
         log("Initialize the connection", LogLevel.Information);
-        log("Connection data: " + url + " - " + queryString == null ? "" : queryString, LogLevel.Verbose);
+        log("Connection data: " + url + " - " + (queryString == null ? "" : queryString), LogLevel.Verbose);
 
         mUrl = url;
         mQueryString = queryString;

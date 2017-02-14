@@ -17,7 +17,7 @@ public class MultiResult {
     public int intResult = 0;
     public String stringResult = null;
     public SignalRFuture<?> futureResult = null;
-    public List<Object> listResult = new ArrayList<Object>();
-    public List<Throwable> errorsResult = new ArrayList<Throwable>();
-    public List<ConnectionState> statesResult = new ArrayList<ConnectionState>();
+    public final List<Object> listResult = new ArrayList<Object>();
+    public final List<Throwable> errorsResult = new ArrayList<Throwable>();
+    public final List<ConnectionState> statesResult = new ArrayList<ConnectionState>();
 }

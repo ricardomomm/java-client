@@ -146,11 +146,11 @@ public class MiscTests extends TestGroup {
     }
 
     class InteralTestData {
-        List<ConnectionState> connectionStates = new ArrayList<ConnectionState>();
-        List<JsonElement> receivedMessages = new ArrayList<JsonElement>();
+        final List<ConnectionState> connectionStates = new ArrayList<ConnectionState>();
+        final List<JsonElement> receivedMessages = new ArrayList<JsonElement>();
         boolean connectionWasClosed = false;
-        List<Throwable> errors = new ArrayList<Throwable>();
-        List<Object> receivedData = new ArrayList<Object>();
+        final List<Throwable> errors = new ArrayList<Throwable>();
+        final List<Object> receivedData = new ArrayList<Object>();
     }
 
     private TestCase createErrorHandledAndConnectionContinuesTest(String name, final TransportType transportType) {

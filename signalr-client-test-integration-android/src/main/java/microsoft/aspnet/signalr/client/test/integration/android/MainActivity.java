@@ -33,7 +33,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
-import microsoft.aspnet.signalr.client.android.test.integration.R;
 import microsoft.aspnet.signalr.client.test.integration.ApplicationContext;
 import microsoft.aspnet.signalr.client.test.integration.framework.TestCase;
 import microsoft.aspnet.signalr.client.test.integration.framework.TestExecutionCallback;

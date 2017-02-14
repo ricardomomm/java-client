@@ -12,5 +12,5 @@ public interface ErrorCallback {
      *
      * @param error The error
      */
-    public void onError(Throwable error);
+    void onError(Throwable error);
 }

@@ -82,7 +82,7 @@ public class ServerSentEventsTransport extends HttpClientTransport {
                     mConnectionFuture.setResult(null);
 
                     StringBuilder buffer = new StringBuilder();
-                    String line = null;
+                    String line;
 
                     log("Read the response content by line", LogLevel.Verbose);
                     while ((line = response.readLine()) != null) {

@@ -52,8 +52,7 @@ public class Platform {
         } else {
             osName = System.getProperty("os.name").toLowerCase(Locale.getDefault());
         }
-        String userAgent = String.format("SignalR (lang=Java; os=%s; version=2.0)", osName);
 
-        return userAgent;
+        return String.format("SignalR (lang=Java; os=%s; version=2.0)", osName);
     }
 }

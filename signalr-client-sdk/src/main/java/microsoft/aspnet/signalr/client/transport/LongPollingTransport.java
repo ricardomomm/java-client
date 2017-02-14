@@ -25,7 +25,7 @@ import microsoft.aspnet.signalr.client.http.Response;
  */
 public class LongPollingTransport extends HttpClientTransport {
     private UpdateableCancellableFuture<Void> mConnectionFuture;
-    private Object mPollSync = new Object();
+    private final Object mPollSync = new Object();
 
     /**
      * Initializes the transport
@@ -92,7 +92,7 @@ public class LongPollingTransport extends HttpClientTransport {
                         try {
                             throwOnInvalidStatusCode(response);
 
-                            if (connectionUrl != "poll") {
+                            if (!"poll".equals(connectionUrl)) {
                                 mConnectionFuture.setResult(null);
                             }
                             log("Response received", LogLevel.Verbose);

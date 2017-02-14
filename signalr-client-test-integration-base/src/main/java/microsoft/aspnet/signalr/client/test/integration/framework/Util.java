@@ -91,9 +91,7 @@ public class Util {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'", Locale.getDefault());
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        String formatted = dateFormat.format(date);
-
-        return formatted;
+        return dateFormat.format(date);
     }
 
     public static boolean compare(Object o1, Object o2) {

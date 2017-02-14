@@ -199,7 +199,6 @@ public abstract class HttpClientTransport implements ClientTransport {
                     headersString.append(headerValue);
                     headersString.append("; ");
                 }
-                ;
                 headersString.append("]; ");
             }
 

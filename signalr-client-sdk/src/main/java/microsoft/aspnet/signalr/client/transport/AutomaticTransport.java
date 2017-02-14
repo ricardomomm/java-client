@@ -72,11 +72,7 @@ public class AutomaticTransport extends HttpClientTransport {
 
     @Override
     public boolean supportKeepAlive() {
-        if (mRealTransport != null) {
-            return mRealTransport.supportKeepAlive();
-        }
-
-        return false;
+        return mRealTransport != null && mRealTransport.supportKeepAlive();
     }
 
     private void resolveTransport(final ConnectionBase connection, final ConnectionType connectionType, final DataResultCallback callback,

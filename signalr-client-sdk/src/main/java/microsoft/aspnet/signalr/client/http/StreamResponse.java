@@ -21,10 +21,10 @@ import microsoft.aspnet.signalr.client.Constants;
  * Response implementation based on an InputStream
  */
 public class StreamResponse implements Response {
-    private BufferedReader mReader;
-    private int mStatus;
-    private InputStream mOriginalStream;
-    Map<String, List<String>> mHeaders;
+    private final BufferedReader mReader;
+    private final int mStatus;
+    private final InputStream mOriginalStream;
+    private final Map<String, List<String>> mHeaders;
 
     /**
      * Initializes the StreamResponse
@@ -66,7 +66,7 @@ public class StreamResponse implements Response {
     @Override
     public String readToEnd() throws IOException {
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while ((line = mReader.readLine()) != null) {
             sb.append(line);
             sb.append("\n");

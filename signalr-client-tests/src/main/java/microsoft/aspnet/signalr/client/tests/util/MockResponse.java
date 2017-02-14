@@ -18,10 +18,10 @@ import microsoft.aspnet.signalr.client.http.Response;
 
 public class MockResponse implements Response {
 
-    Semaphore mSemaphore = new Semaphore(0);
+    final Semaphore mSemaphore = new Semaphore(0);
 
-    Object mLinesLock = new Object();
-    Queue<String> mLines = new ConcurrentLinkedQueue<String>();
+    final Object mLinesLock = new Object();
+    final Queue<String> mLines = new ConcurrentLinkedQueue<String>();
     Map<String, List<String>> mHeaders = new HashMap<String, List<String>>();
     int mStatus;
     boolean mFinished = false;

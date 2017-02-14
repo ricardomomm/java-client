@@ -28,8 +28,8 @@ import microsoft.aspnet.signalr.client.transport.LongPollingTransport;
  */
 public class HubConnection extends Connection {
 
-    private Map<String, Action<HubResult>> mCallbacks = Collections.synchronizedMap(new HashMap<String, Action<HubResult>>());
-    private Map<String, HubProxy> mHubs = Collections.synchronizedMap(new HashMap<String, HubProxy>());
+    private final Map<String, Action<HubResult>> mCallbacks = Collections.synchronizedMap(new HashMap<String, Action<HubResult>>());
+    private final Map<String, HubProxy> mHubs = Collections.synchronizedMap(new HashMap<String, HubProxy>());
     private Integer mCallbackId = 0;
 
     /**
@@ -204,7 +204,7 @@ public class HubConnection extends Connection {
 
         log("Creating hub proxy: " + hubNameLower, LogLevel.Information);
 
-        HubProxy proxy = null;
+        HubProxy proxy;
         if (mHubs.containsKey(hubNameLower)) {
             proxy = mHubs.get(hubNameLower);
         } else {

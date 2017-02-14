@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class TestGroup {
-    List<TestCase> mTestCases;
+    final List<TestCase> mTestCases;
     String mName;
     TestStatus mStatus;
-    ConcurrentLinkedQueue<TestCase> mTestRunQueue;
+    final ConcurrentLinkedQueue<TestCase> mTestRunQueue;
     boolean mNewTestRun;
 
     public TestGroup(String name) {
@@ -188,7 +188,7 @@ public abstract class TestGroup {
     }
 
     private class TestRunStatus {
-        public List<TestResult> results;
+        public final List<TestResult> results;
 
         public TestRunStatus() {
             results = new ArrayList<TestResult>();

@@ -20,7 +20,7 @@ import microsoft.aspnet.signalr.client.test.integration.framework.TestResult;
 public class JavaTestPlatformContext implements TestPlatformContext {
 
     private boolean mLoggingEnabled = false;
-    private String mServerUrl;
+    private final String mServerUrl;
 
     public JavaTestPlatformContext(String serverUrl) {
         mServerUrl = serverUrl;

@@ -35,7 +35,7 @@ public class TransportHelper {
             return result;
         }
 
-        JsonObject json = null;
+        JsonObject json;
 
         try {
             json = connection.getJsonParser().parse(data).getAsJsonObject();
@@ -118,21 +118,21 @@ public class TransportHelper {
     public static String getReceiveQueryString(ClientTransport transport, ConnectionBase connection) {
         StringBuilder qsBuilder = new StringBuilder();
 
-        qsBuilder.append("?transport=" + transport.getName()).append("&connectionToken=" + urlEncode(connection.getConnectionToken()));
-
-        qsBuilder.append("&connectionId=" + urlEncode(connection.getConnectionId()));
+        qsBuilder.append("?transport=").append(transport.getName())
+                .append("&connectionToken=").append(urlEncode(connection.getConnectionToken()))
+                .append("&connectionId=").append(urlEncode(connection.getConnectionId()));
 
         if (connection.getMessageId() != null) {
-            qsBuilder.append("&messageId=" + urlEncode(connection.getMessageId()));
+            qsBuilder.append("&messageId=").append(urlEncode(connection.getMessageId()));
         }
 
         if (connection.getGroupsToken() != null) {
-            qsBuilder.append("&groupsToken=" + urlEncode(connection.getGroupsToken()));
+            qsBuilder.append("&groupsToken=").append(urlEncode(connection.getGroupsToken()));
         }
 
         String connectionData = connection.getConnectionData();
         if (connectionData != null) {
-            qsBuilder.append("&connectionData=" + urlEncode(connectionData));
+            qsBuilder.append("&connectionData=").append(urlEncode(connectionData));
         }
 
         String customQuery = connection.getQueryString();
@@ -152,10 +152,10 @@ public class TransportHelper {
      */
     public static String getNegotiateQueryString(ConnectionBase connection) {
         StringBuilder qsBuilder = new StringBuilder();
-        qsBuilder.append("?clientProtocol=" + urlEncode(Connection.PROTOCOL_VERSION.toString()));
+        qsBuilder.append("?clientProtocol=").append(urlEncode(Connection.PROTOCOL_VERSION.toString()));
 
         if (connection.getConnectionData() != null) {
-            qsBuilder.append("&").append("connectionData=" + urlEncode(connection.getConnectionData()));
+            qsBuilder.append("&").append("connectionData=").append(urlEncode(connection.getConnectionData()));
         }
 
         if (connection.getQueryString() != null) {
@@ -174,14 +174,14 @@ public class TransportHelper {
      */
     public static String getSendQueryString(ClientTransport transport, ConnectionBase connection) {
         StringBuilder qsBuilder = new StringBuilder();
-        qsBuilder.append("?transport=" + TransportHelper.urlEncode(transport.getName()));
+        qsBuilder.append("?transport=").append(TransportHelper.urlEncode(transport.getName()));
 
-        qsBuilder.append("&connectionToken=" + TransportHelper.urlEncode(connection.getConnectionToken()));
+        qsBuilder.append("&connectionToken=").append(TransportHelper.urlEncode(connection.getConnectionToken()));
 
-        qsBuilder.append("&connectionId=" + TransportHelper.urlEncode(connection.getConnectionId()));
+        qsBuilder.append("&connectionId=").append(TransportHelper.urlEncode(connection.getConnectionId()));
 
         if (connection.getConnectionData() != null) {
-            qsBuilder.append("&connectionData=" + TransportHelper.urlEncode(connection.getConnectionData()));
+            qsBuilder.append("&connectionData=").append(TransportHelper.urlEncode(connection.getConnectionData()));
         }
 
         if (connection.getQueryString() != null) {

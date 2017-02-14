@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="microsoft.aspnet.signalr.client.android.test.integration"
+          package="microsoft.aspnet.signalr.client.test.integration.android"
     >
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         >
         <activity
-            android:name="microsoft.aspnet.signalr.client.test.integration.android.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/app_name"
             >
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="microsoft.aspnet.signalr.client.test.integration.android.SignalRPreferenceActivity"
+            android:name=".SignalRPreferenceActivity"
             android:label="@string/title_activity_signalr_preference"
             >
         </activity>

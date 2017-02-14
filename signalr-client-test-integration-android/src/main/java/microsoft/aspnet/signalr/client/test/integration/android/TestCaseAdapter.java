@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
-import microsoft.aspnet.signalr.client.android.test.integration.R;
 import microsoft.aspnet.signalr.client.test.integration.framework.TestCase;
 import microsoft.aspnet.signalr.client.test.integration.framework.TestStatus;
 
@@ -27,12 +26,12 @@ public class TestCaseAdapter extends ArrayAdapter<TestCase> {
     /**
      * Adapter context
      */
-    Context mContext;
+    final Context mContext;
 
     /**
      * Adapter View layout
      */
-    int mLayoutResourceId;
+    final int mLayoutResourceId;
 
     public TestCaseAdapter(Context context, int layoutResourceId) {
         super(context, layoutResourceId);

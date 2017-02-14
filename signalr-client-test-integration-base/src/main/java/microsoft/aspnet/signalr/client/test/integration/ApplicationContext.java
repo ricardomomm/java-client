@@ -34,18 +34,12 @@ public class ApplicationContext {
 
     public static HubConnection createHubConnection() {
         String url = getServerUrl();
-
-        HubConnection connection = new HubConnection(url, "", true, mTestPlatformContext.getLogger());
-
-        return connection;
+        return new HubConnection(url, "", true, mTestPlatformContext.getLogger());
     }
 
     public static HubConnection createHubConnectionWithInvalidURL() {
         String url = "http://signalr.net/fake";
-
-        HubConnection connection = new HubConnection(url, "", true, mTestPlatformContext.getLogger());
-
-        return connection;
+        return new HubConnection(url, "", true, mTestPlatformContext.getLogger());
     }
 
     public static String getServerUrl() {

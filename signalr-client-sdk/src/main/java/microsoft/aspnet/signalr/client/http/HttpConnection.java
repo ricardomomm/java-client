@@ -20,5 +20,5 @@ public interface HttpConnection {
      * @param responseCallback The callback to invoke when the response is returned
      * @return A Future for the operation
      */
-    public HttpConnectionFuture execute(final Request request, ResponseCallback responseCallback);
+    HttpConnectionFuture execute(final Request request, ResponseCallback responseCallback);
 }

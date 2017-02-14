@@ -11,9 +11,8 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 public class Sync {
-
     private static Map<String, Semaphore> mSemaphores = new HashMap<String, Semaphore>();
-    public static Object mSync = new Object();
+    private static final Object mSync = new Object();
 
     private static Semaphore getSemaphore(String name) {
         synchronized (mSync) {

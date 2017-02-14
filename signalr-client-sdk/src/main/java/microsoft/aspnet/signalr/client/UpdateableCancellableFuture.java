@@ -11,9 +11,9 @@ package microsoft.aspnet.signalr.client;
  * internal instance
  */
 public class UpdateableCancellableFuture<V> extends SignalRFuture<V> {
-    SignalRFuture<?> mFuture = null;
+    private SignalRFuture<?> mFuture = null;
 
-    Object mSync = new Object();
+    private final Object mSync = new Object();
 
     public UpdateableCancellableFuture(SignalRFuture<?> token) {
         mFuture = token;

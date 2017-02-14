@@ -16,5 +16,5 @@ public interface DataResultCallback {
      *
      * @param data data
      */
-    public void onData(String data);
+    void onData(String data);
 }
