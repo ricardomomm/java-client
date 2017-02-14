@@ -12,11 +12,9 @@ package microsoft.aspnet.signalr.client;
 public interface Logger {
     /**
      * Logs a message
-     * 
-     * @param message
-     *            Message to log
-     * @param level
-     *            Message level
+     *
+     * @param message Message to log
+     * @param level   Message level
      */
     public void log(String message, LogLevel level);
 }

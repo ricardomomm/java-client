@@ -6,12 +6,12 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.transport;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.ConnectionBase;
@@ -24,7 +24,7 @@ public class TransportHelper {
     public static MessageResult processReceivedData(String data, ConnectionBase connection) {
         Logger logger = connection.getLogger();
         MessageResult result = new MessageResult();
-        
+
         if (data == null) {
             return result;
         }
@@ -110,11 +110,9 @@ public class TransportHelper {
 
     /**
      * Creates the query string used on receive
-     * 
-     * @param transport
-     *            Transport to use
-     * @param connection
-     *            Current connection
+     *
+     * @param transport  Transport to use
+     * @param connection Current connection
      * @return The querystring
      */
     public static String getReceiveQueryString(ClientTransport transport, ConnectionBase connection) {
@@ -148,9 +146,8 @@ public class TransportHelper {
 
     /**
      * Creates the query string used on sending
-     * 
-     * @param connection
-     *            current connection
+     *
+     * @param connection current connection
      * @return The querystring
      */
     public static String getNegotiateQueryString(ConnectionBase connection) {
@@ -170,11 +167,9 @@ public class TransportHelper {
 
     /**
      * Creates the query string used on sending
-     * 
-     * @param transport
-     *            the transport to use
-     * @param connection
-     *            current connection
+     *
+     * @param transport  the transport to use
+     * @param connection current connection
      * @return The querystring
      */
     public static String getSendQueryString(ClientTransport transport, ConnectionBase connection) {

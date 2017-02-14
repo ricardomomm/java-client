@@ -7,6 +7,7 @@ See License.txt in the project root for license information.
 package microsoft.aspnet.signalr.client.http.android;
 
 import android.util.Base64;
+
 import microsoft.aspnet.signalr.client.http.BasicAuthenticationCredentials.Base64Encoder;
 
 public class AndroidBase64Encoder implements Base64Encoder {

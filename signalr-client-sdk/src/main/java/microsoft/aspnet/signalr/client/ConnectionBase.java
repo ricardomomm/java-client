@@ -6,11 +6,11 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client;
 
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import java.util.Map;
 
 import microsoft.aspnet.signalr.client.http.Request;
 import microsoft.aspnet.signalr.client.transport.ClientTransport;
@@ -69,11 +69,9 @@ public interface ConnectionBase {
 
     /**
      * Triggers the Error event
-     * 
-     * @param error
-     *            The error that triggered the event
-     * @param mustCleanCurrentConnection
-     *            True if the connection must be cleaned
+     *
+     * @param error                      The error that triggered the event
+     * @param mustCleanCurrentConnection True if the connection must be cleaned
      */
     public void onError(Throwable error, boolean mustCleanCurrentConnection);
 
@@ -131,9 +129,8 @@ public interface ConnectionBase {
 
     /**
      * Starts the connection
-     * 
-     * @param transport
-     *            Transport to be used by the connection
+     *
+     * @param transport Transport to be used by the connection
      * @return Future for the operation
      */
     public SignalRFuture<Void> start(ClientTransport transport);
@@ -150,18 +147,16 @@ public interface ConnectionBase {
 
     /**
      * Sends data using the connection
-     * 
-     * @param data
-     *            Data to send
+     *
+     * @param data Data to send
      * @return Future for the operation
      */
     public SignalRFuture<Void> send(String data);
 
     /**
      * Prepares a request that is going to be sent to the server
-     * 
-     * @param request
-     *            The request to prepare
+     *
+     * @param request The request to prepare
      */
     void prepareRequest(Request request);
 
@@ -169,7 +164,7 @@ public interface ConnectionBase {
      * Returns the connection headers
      */
     Map<String, String> getHeaders();
-    
+
     /**
      * Add a header
      */

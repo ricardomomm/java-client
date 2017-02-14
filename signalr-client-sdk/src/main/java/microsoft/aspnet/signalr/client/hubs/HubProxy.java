@@ -6,6 +6,8 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.hubs;
 
+import com.google.gson.JsonElement;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -20,8 +22,6 @@ import microsoft.aspnet.signalr.client.ErrorCallback;
 import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
 import microsoft.aspnet.signalr.client.SignalRFuture;
-
-import com.google.gson.JsonElement;
 
 /**
  * Proxy for hub operations
@@ -38,18 +38,16 @@ public class HubProxy {
 
     private Logger mLogger;
 
-    private static final List<String> EXCLUDED_METHODS = Arrays.asList(new String[] { "equals", "getClass", "hashCode", "notify", "notifyAll", "toString",
-            "wait" });
+    private static final List<String> EXCLUDED_METHODS = Arrays.asList(new String[]{"equals", "getClass", "hashCode", "notify", "notifyAll", "toString",
+            "wait"});
 
     private static final String SUBSCRIPTION_HANDLER_METHOD = "run";
 
     /**
      * Initializes the HubProxy
-     * 
-     * @param connection
-     *            HubConnection to use
-     * @param hubName
-     *            Hub name
+     *
+     * @param connection HubConnection to use
+     * @param hubName    Hub name
      */
     protected HubProxy(HubConnection connection, String hubName, Logger logger) {
         mConnection = connection;
@@ -59,11 +57,9 @@ public class HubProxy {
 
     /**
      * Sets the state for a key
-     * 
-     * @param key
-     *            Key to set
-     * @param state
-     *            State to set
+     *
+     * @param key   Key to set
+     * @param state State to set
      */
     public void setState(String key, JsonElement state) {
         mState.put(key, state);
@@ -71,9 +67,8 @@ public class HubProxy {
 
     /**
      * Gets the state for a key
-     * 
-     * @param key
-     *            Key to get
+     *
+     * @param key Key to get
      */
     public JsonElement getState(String key) {
         return mState.get(key);
@@ -81,11 +76,9 @@ public class HubProxy {
 
     /**
      * Gets the value for a key
-     * 
-     * @param key
-     *            Key to get
-     * @param clazz
-     *            Class used to to deserialize the value
+     *
+     * @param key   Key to get
+     * @param clazz Class used to to deserialize the value
      * @return
      */
     public <E> E getValue(String key, Class<E> clazz) {
@@ -94,9 +87,8 @@ public class HubProxy {
 
     /**
      * Creates a subscription to an event
-     * 
-     * @param eventName
-     *            The name of the event
+     *
+     * @param eventName The name of the event
      * @return The subscription object
      */
     public Subscription subscribe(String eventName) {
@@ -122,9 +114,8 @@ public class HubProxy {
 
     /**
      * Create subscriptions for all the object methods
-     * 
-     * @param handler
-     *            Handler for the hub messages
+     *
+     * @param handler Handler for the hub messages
      */
     public void subscribe(final Object handler) {
         if (handler == null) {
@@ -165,23 +156,20 @@ public class HubProxy {
 
     /**
      * Removes all the subscriptions attached to an event
-     * 
-     * @param eventName
-     *            the event
+     *
+     * @param eventName the event
      */
     public void removeSubscription(String eventName) {
         if (eventName != null) {
-        	mSubscriptions.remove(eventName.toLowerCase(Locale.getDefault()));
+            mSubscriptions.remove(eventName.toLowerCase(Locale.getDefault()));
         }
     }
 
     /**
      * Invokes a hub method
-     * 
-     * @param method
-     *            Method name
-     * @param args
-     *            Method arguments
+     *
+     * @param method Method name
+     * @param args   Method arguments
      * @return A Future for the operation
      */
     public SignalRFuture<Void> invoke(String method, Object... args) {
@@ -190,11 +178,9 @@ public class HubProxy {
 
     /**
      * Invokes a hub method that returns a value
-     * 
-     * @param method
-     *            Method name
-     * @param args
-     *            Method arguments
+     *
+     * @param method Method name
+     * @param args   Method arguments
      * @return A Future for the operation, that will return the method result
      */
     public <E> SignalRFuture<E> invoke(final Class<E> resultClass, final String method, Object... args) {
@@ -289,14 +275,12 @@ public class HubProxy {
 
         return resultFuture;
     }
-    
+
     /**
      * Overload of 'invoke' hub method that takes a type instead of class for GSON deserialisation
-     * 
-     * @param method
-     *            Method name
-     * @param args
-     *            Method arguments
+     *
+     * @param method Method name
+     * @param args   Method arguments
      * @return A Future for the operation, that will return the method result
      */
     public <E> SignalRFuture<E> invoke(final Class<E> resultClass, final Type resultType, final String method, Object... args) {
@@ -394,11 +378,9 @@ public class HubProxy {
 
     /**
      * Invokes a hub event with argument
-     * 
-     * @param eventName
-     *            The name of the event
-     * @param args
-     *            The event args
+     *
+     * @param eventName The name of the event
+     * @param args      The event args
      * @throws Exception
      */
     void invokeEvent(String eventName, JsonElement[] args) throws Exception {
@@ -449,7 +431,7 @@ public class HubProxy {
     }
 
     public <E1, E2, E3, E4, E5> void on(String eventName, final SubscriptionHandler5<E1, E2, E3, E4, E5> handler, Class<E1> parameter1, Class<E2> parameter2,
-            Class<E3> parameter3, Class<E4> parameter4, Class<E5> parameter5) {
+                                        Class<E3> parameter3, Class<E4> parameter4, Class<E5> parameter5) {
         on(eventName, new SubscriptionHandler5<E1, E2, E3, E4, E5>() {
 
             @Override
@@ -460,7 +442,7 @@ public class HubProxy {
     }
 
     public <E1, E2, E3, E4> void on(String eventName, final SubscriptionHandler4<E1, E2, E3, E4> handler, Class<E1> parameter1, Class<E2> parameter2,
-            Class<E3> parameter3, Class<E4> parameter4) {
+                                    Class<E3> parameter3, Class<E4> parameter4) {
         on(eventName, new SubscriptionHandler5<E1, E2, E3, E4, Void>() {
 
             @Override
@@ -471,7 +453,7 @@ public class HubProxy {
     }
 
     public <E1, E2, E3> void on(String eventName, final SubscriptionHandler3<E1, E2, E3> handler, Class<E1> parameter1, Class<E2> parameter2,
-            Class<E3> parameter3) {
+                                Class<E3> parameter3) {
         on(eventName, new SubscriptionHandler5<E1, E2, E3, Void, Void>() {
 
             @Override

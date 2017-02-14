@@ -6,7 +6,9 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.mocktransport;
 
-import static org.junit.Assert.*;
+import com.google.gson.JsonPrimitive;
+
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,9 +17,7 @@ import java.util.TimeZone;
 import microsoft.aspnet.signalr.client.CalendarSerializer;
 import microsoft.aspnet.signalr.client.DateSerializer;
 
-import org.junit.Test;
-
-import com.google.gson.JsonPrimitive;
+import static org.junit.Assert.assertEquals;
 
 public class CustomSerializationTests {
 
@@ -122,7 +122,7 @@ public class CustomSerializationTests {
         assertEquals(seconds, calendar.get(Calendar.SECOND));
         assertEquals(milliseconds, calendar.get(Calendar.MILLISECOND));
     }
-    
+
     @Test
     public void testTimeParse() throws Exception {
 

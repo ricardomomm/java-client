@@ -6,10 +6,10 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.hubs;
 
+import com.google.gson.JsonElement;
+
 import java.util.Locale;
 import java.util.Map;
-
-import com.google.gson.JsonElement;
 
 /**
  * Represents the result of a hub operation

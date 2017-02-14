@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import microsoft.aspnet.signalr.client.Action;
+import microsoft.aspnet.signalr.client.ConnectionBase;
 import microsoft.aspnet.signalr.client.ErrorCallback;
 import microsoft.aspnet.signalr.client.LogLevel;
-import microsoft.aspnet.signalr.client.SignalRFuture;
-import microsoft.aspnet.signalr.client.ConnectionBase;
 import microsoft.aspnet.signalr.client.Logger;
 import microsoft.aspnet.signalr.client.NullLogger;
+import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnection;
 
 /**
@@ -35,9 +35,8 @@ public class AutomaticTransport extends HttpClientTransport {
 
     /**
      * Initializes the transport with a logger
-     * 
-     * @param logger
-     *            logger to log actions
+     *
+     * @param logger logger to log actions
      */
     public AutomaticTransport(Logger logger) {
         super(logger);
@@ -46,11 +45,9 @@ public class AutomaticTransport extends HttpClientTransport {
 
     /**
      * Initializes the transport with a logger and an httpConnection
-     * 
-     * @param logger
-     *            the logger
-     * @param httpConnection
-     *            the httpConnection
+     *
+     * @param logger         the logger
+     * @param httpConnection the httpConnection
      */
     public AutomaticTransport(Logger logger, HttpConnection httpConnection) {
         super(logger, httpConnection);
@@ -83,7 +80,7 @@ public class AutomaticTransport extends HttpClientTransport {
     }
 
     private void resolveTransport(final ConnectionBase connection, final ConnectionType connectionType, final DataResultCallback callback,
-            final int currentTransportIndex, final SignalRFuture<Void> startFuture) {
+                                  final int currentTransportIndex, final SignalRFuture<Void> startFuture) {
         final ClientTransport currentTransport = mTransports.get(currentTransportIndex);
 
         final SignalRFuture<Void> transportStart = currentTransport.start(connection, connectionType, callback);
@@ -120,7 +117,7 @@ public class AutomaticTransport extends HttpClientTransport {
         };
 
         transportStart.onError(handleError);
-        
+
         startFuture.onCancelled(new Runnable() {
 
             @Override

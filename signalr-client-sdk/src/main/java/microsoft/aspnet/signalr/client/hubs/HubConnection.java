@@ -34,15 +34,11 @@ public class HubConnection extends Connection {
 
     /**
      * Initializes the connection
-     * 
-     * @param url
-     *            The connection URL
-     * @param queryString
-     *            The connection query string
-     * @param useDefaultUrl
-     *            indicates if the default SignalR URL should be used
-     * @param logger
-     *            The connection logger
+     *
+     * @param url           The connection URL
+     * @param queryString   The connection query string
+     * @param useDefaultUrl indicates if the default SignalR URL should be used
+     * @param logger        The connection logger
      */
     public HubConnection(String url, String queryString, boolean useDefaultUrl, Logger logger) {
         super(getUrl(url, useDefaultUrl), queryString, logger);
@@ -51,8 +47,7 @@ public class HubConnection extends Connection {
     /**
      * Initialized the connection
      *
-     * @param url
-     *            The connection URL
+     * @param url The connection URL
      */
     public HubConnection(String url) {
         super(getUrl(url, true));
@@ -61,10 +56,8 @@ public class HubConnection extends Connection {
     /**
      * Initializes the connection
      *
-     * @param url
-     *            The connection URL
-     * @param useDefaultUrl
-     *            indicates if the default SignalR URL should be used
+     * @param url           The connection URL
+     * @param useDefaultUrl indicates if the default SignalR URL should be used
      */
     public HubConnection(String url, boolean useDefaultUrl) {
         super(getUrl(url, useDefaultUrl));
@@ -193,12 +186,10 @@ public class HubConnection extends Connection {
     /**
      * Creates a proxy for a hub
      *
-     * @param hubName
-     *            The hub name
+     * @param hubName The hub name
      * @return The proxy for the hub
-     * @throws InvalidStateException
-     *             If called when not disconnected, the method will throw an
-     *             exception
+     * @throws InvalidStateException If called when not disconnected, the method will throw an
+     *                               exception
      */
     public HubProxy createHubProxy(String hubName) {
         if (mState != ConnectionState.Disconnected) {
@@ -227,8 +218,7 @@ public class HubConnection extends Connection {
     /**
      * Registers a callback
      *
-     * @param callback
-     *            The callback to register
+     * @param callback The callback to register
      * @return The callback Id
      */
     String registerCallback(Action<HubResult> callback) {
@@ -242,8 +232,7 @@ public class HubConnection extends Connection {
     /**
      * Removes a callback
      *
-     * @param callbackId
-     *            Id for the callback to remove
+     * @param callbackId Id for the callback to remove
      */
     void removeCallback(String callbackId) {
         log("Removing callback: " + callbackId, LogLevel.Verbose);
@@ -253,10 +242,8 @@ public class HubConnection extends Connection {
     /**
      * Generates a standarized URL
      *
-     * @param url
-     *            The base URL
-     * @param useDefaultUrl
-     *            Indicates if the default SignalR suffix should be appended
+     * @param url           The base URL
+     * @param useDefaultUrl Indicates if the default SignalR suffix should be appended
      * @return The connection URL
      */
     private static String getUrl(String url, boolean useDefaultUrl) {

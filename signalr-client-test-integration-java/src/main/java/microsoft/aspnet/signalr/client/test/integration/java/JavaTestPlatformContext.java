@@ -21,19 +21,19 @@ public class JavaTestPlatformContext implements TestPlatformContext {
 
     private boolean mLoggingEnabled = false;
     private String mServerUrl;
-    
+
     public JavaTestPlatformContext(String serverUrl) {
         mServerUrl = serverUrl;
     }
-    
+
     public void setLoggingEnabled(boolean loggingEnabled) {
         mLoggingEnabled = loggingEnabled;
     }
-    
+
     @Override
     public Logger getLogger() {
         return new Logger() {
-            
+
             @Override
             public void log(String message, LogLevel level) {
                 if (mLoggingEnabled) {
@@ -56,14 +56,14 @@ public class JavaTestPlatformContext implements TestPlatformContext {
     @Override
     public Future<Void> showMessage(String message) {
         SignalRFuture<Void> future = new SignalRFuture<Void>();
-        
+
         System.out.println(message);
         System.out.println("Press any key to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.next();
-        
+
         future.setResult(null);
-        
+
         return future;
     }
 

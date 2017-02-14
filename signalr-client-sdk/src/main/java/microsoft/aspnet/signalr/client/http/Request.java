@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import microsoft.aspnet.signalr.client.*;
+import microsoft.aspnet.signalr.client.Constants;
+import microsoft.aspnet.signalr.client.LogLevel;
+import microsoft.aspnet.signalr.client.Logger;
+import microsoft.aspnet.signalr.client.SimpleEntry;
 
 /**
  * Represents an HTTP Request
@@ -31,9 +34,8 @@ public class Request {
 
     /**
      * Initializes a request with an HTTP verb
-     * 
-     * @param httpVerb
-     *            the HTTP verb
+     *
+     * @param httpVerb the HTTP verb
      */
     public Request(String httpVerb) {
         mVerb = httpVerb;
@@ -56,11 +58,9 @@ public class Request {
     /**
      * Sets the request content with a single name-value pair, using form
      * encoding
-     * 
-     * @param name
-     *            The name for the form data
-     * @param value
-     *            The value for the form data
+     *
+     * @param name  The name for the form data
+     * @param value The value for the form data
      */
     public void setFormContent(String name, String value) {
         List<Entry<String, String>> formValues = new ArrayList<Entry<String, String>>();
@@ -72,9 +72,8 @@ public class Request {
     /**
      * Sets the request content with several name-value pairs, using form
      * encoding
-     * 
-     * @param formValues
-     *            The name-value pairs
+     *
+     * @param formValues The name-value pairs
      */
     public void setFormContent(List<Entry<String, String>> formValues) {
         StringBuilder sb = new StringBuilder();
@@ -113,11 +112,9 @@ public class Request {
 
     /**
      * Adds a header to the request
-     * 
-     * @param name
-     *            The header name
-     * @param value
-     *            The header value
+     *
+     * @param name  The header name
+     * @param value The header value
      */
     public void addHeader(String name, String value) {
         mHeaders.put(name, value);
@@ -125,9 +122,8 @@ public class Request {
 
     /**
      * Removes a header
-     * 
-     * @param name
-     *            The header name
+     *
+     * @param name The header name
      */
     public void removeHeader(String name) {
         mHeaders.remove(name);
@@ -163,9 +159,8 @@ public class Request {
 
     /**
      * Logs the request data
-     * 
-     * @param logger
-     *            the provided logger
+     *
+     * @param logger the provided logger
      */
     public void log(Logger logger) {
         if (logger != null) {

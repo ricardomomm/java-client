@@ -8,13 +8,13 @@ package microsoft.aspnet.signalr.client.transport;
 
 import java.io.IOException;
 
-import microsoft.aspnet.signalr.client.FutureHelper;
-import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.ConnectionBase;
 import microsoft.aspnet.signalr.client.Constants;
+import microsoft.aspnet.signalr.client.FutureHelper;
 import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
 import microsoft.aspnet.signalr.client.Platform;
+import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnection;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
@@ -36,9 +36,8 @@ public abstract class HttpClientTransport implements ClientTransport {
 
     /**
      * Initializes the HttpClientTransport with a logger
-     * 
-     * @param logger
-     *            logger to log actions
+     *
+     * @param logger logger to log actions
      */
     public HttpClientTransport(Logger logger) {
         this(logger, Platform.createHttpConnection(logger));

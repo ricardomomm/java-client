@@ -75,14 +75,14 @@ public class WebsocketTransport extends HttpClientTransport {
                     + "&groupsToken=" + URLEncoder.encode(groupsToken, "UTF-8")
                     + "&messageId=" + URLEncoder.encode(messageId, "UTF-8")
                     + "&transport=" + URLEncoder.encode(transport, "UTF-8");
-            if(connection.getQueryString() != null) {
-            	url += "&" + connection.getQueryString();
+            if (connection.getQueryString() != null) {
+                url += "&" + connection.getQueryString();
             }
-            if(url.startsWith("https://")){
-            	isSsl = true;
-            	url = url.replace("https://", "wss://");
-            } else if(url.startsWith("http://")){
-            	url = url.replace("http://", "ws://");
+            if (url.startsWith("https://")) {
+                isSsl = true;
+                url = url.replace("https://", "wss://");
+            } else if (url.startsWith("http://")) {
+                url = url.replace("http://", "ws://");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class WebsocketTransport extends HttpClientTransport {
             return mConnectionFuture;
         }
 
-        mWebSocketClient = new WebSocketClient(uri,new Draft_17(), connection.getHeaders(), 0) {
+        mWebSocketClient = new WebSocketClient(uri, new Draft_17(), connection.getHeaders(), 0) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
                 mConnectionFuture.setResult(null);
@@ -132,7 +132,7 @@ public class WebsocketTransport extends HttpClientTransport {
                     mBuffer.append(decodedString);
 
                     // if this is final frame
-                    if(frame.isFin()) {
+                    if (frame.isFin()) {
                         String message = mBuffer.toString();
 
                         // reset buffer
@@ -145,11 +145,11 @@ public class WebsocketTransport extends HttpClientTransport {
                 }
             }
         };
-        
-        if(isSsl){
-        	SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+
+        if (isSsl) {
+            SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             try {
-            mWebSocketClient.setSocket(factory.createSocket());
+                mWebSocketClient.setSocket(factory.createSocket());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

@@ -6,13 +6,6 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client;
 
-import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -20,6 +13,13 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Date Serializer/Deserializer to make .NET and Java dates compatible
@@ -52,7 +52,7 @@ public class DateSerializer implements JsonSerializer<Date>, JsonDeserializer<Da
         JsonElement element = new JsonPrimitive(serialize(date));
         return element;
     }
-    
+
 
     /**
      * Normalize ISO-8601 formatted date to java format
@@ -63,7 +63,7 @@ public class DateSerializer implements JsonSerializer<Date>, JsonDeserializer<Da
         if (strVal == null || strVal.length() < 19) {//"yyyy-MM-ddTHH:mm:dd".length()
             throw new JsonParseException("Invalid length for: " + strVal);
         }
-        
+
         //normalize time zone
         if ((strVal.lastIndexOf('+') == strVal.length() - 6) ||//"+08:00".length()
                 (strVal.lastIndexOf('-') == strVal.length() - 6)) {//"-08:00".length()
@@ -107,7 +107,7 @@ public class DateSerializer implements JsonSerializer<Date>, JsonDeserializer<Da
         } catch (IndexOutOfBoundsException e) {
             throw new JsonParseException("Invalid length for: " + s);
         }
-        
+
         return s;
     }
 
@@ -116,7 +116,7 @@ public class DateSerializer implements JsonSerializer<Date>, JsonDeserializer<Da
      */
     public static Date deserialize(String strVal) throws ParseException {
         String s = normalize(strVal);
-        
+
         // Parse the well-formatted date string
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'SSSZ");
         dateFormat.setTimeZone(TimeZone.getDefault());

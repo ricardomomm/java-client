@@ -44,291 +44,287 @@ import microsoft.aspnet.signalr.client.test.integration.tests.MiscTests;
 @SuppressWarnings("deprecation")
 public class MainActivity extends Activity {
 
-	private StringBuilder mLog;
+    private StringBuilder mLog;
 
-	private ListView mTestCaseList;
-	
-	private Spinner mTestGroupSpinner;
+    private ListView mTestCaseList;
 
-	
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// don't restart the activity. Just process the configuration change
-		super.onConfigurationChanged(newConfig);
-	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		AndroidTestPlatformContext testPlatformContext = new AndroidTestPlatformContext(this);
-		ApplicationContext.setTestPlatformContext(testPlatformContext);
-		
-		setContentView(R.layout.activity_main);
+    private Spinner mTestGroupSpinner;
 
-		mTestCaseList = (ListView) findViewById(R.id.testCaseList);
-		TestCaseAdapter testCaseAdapter = new TestCaseAdapter(this, R.layout.row_list_test_case);
-		mTestCaseList.setAdapter(testCaseAdapter);
 
-		mTestGroupSpinner = (Spinner) findViewById(R.id.testGroupSpinner);
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // don't restart the activity. Just process the configuration change
+        super.onConfigurationChanged(newConfig);
+    }
 
-		ArrayAdapter<TestGroup> testGroupAdapter = new ArrayAdapter<TestGroup>(this, android.R.layout.simple_spinner_item);
-		mTestGroupSpinner.setAdapter(testGroupAdapter);
-		mTestGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				selectTestGroup(pos);
-			}
+        AndroidTestPlatformContext testPlatformContext = new AndroidTestPlatformContext(this);
+        ApplicationContext.setTestPlatformContext(testPlatformContext);
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// do nothing
-			}
-		});
-		
-		refreshTestGroupsAndLog();
-	}
+        setContentView(R.layout.activity_main);
 
-	private void selectTestGroup(int pos) {
-		TestGroup tg = (TestGroup) mTestGroupSpinner.getItemAtPosition(pos);
-		List<TestCase> testCases = tg.getTestCases();
+        mTestCaseList = (ListView) findViewById(R.id.testCaseList);
+        TestCaseAdapter testCaseAdapter = new TestCaseAdapter(this, R.layout.row_list_test_case);
+        mTestCaseList.setAdapter(testCaseAdapter);
 
-		fillTestList(testCases);
-	}
+        mTestGroupSpinner = (Spinner) findViewById(R.id.testGroupSpinner);
 
-	@SuppressWarnings("unchecked")
-	private void refreshTestGroupsAndLog() {
-		mLog = new StringBuilder();
+        ArrayAdapter<TestGroup> testGroupAdapter = new ArrayAdapter<TestGroup>(this, android.R.layout.simple_spinner_item);
+        mTestGroupSpinner.setAdapter(testGroupAdapter);
+        mTestGroupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-		ArrayAdapter<TestGroup> adapter = (ArrayAdapter<TestGroup>) mTestGroupSpinner.getAdapter();
-		adapter.clear();
-		adapter.add(new MiscTests());
-		mTestGroupSpinner.setSelection(0);
-		selectTestGroup(0);
-	}
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                selectTestGroup(pos);
+            }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // do nothing
+            }
+        });
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_settings:
-			startActivity(new Intent(this, SignalRPreferenceActivity.class));
-			return true;
+        refreshTestGroupsAndLog();
+    }
 
-		case R.id.menu_run_tests:
-			if (ApplicationContext.getServerUrl().trim().equals("") ) {
-		        startActivity(new Intent(this, SignalRPreferenceActivity.class));
-			} else {
-				runTests();
-			}
-			return true;
+    private void selectTestGroup(int pos) {
+        TestGroup tg = (TestGroup) mTestGroupSpinner.getItemAtPosition(pos);
+        List<TestCase> testCases = tg.getTestCases();
 
-		case R.id.menu_check_all:
-			changeCheckAllTests(true);
-			return true;
+        fillTestList(testCases);
+    }
 
-		case R.id.menu_uncheck_all:
-			changeCheckAllTests(false);
-			return true;
+    @SuppressWarnings("unchecked")
+    private void refreshTestGroupsAndLog() {
+        mLog = new StringBuilder();
 
-		case R.id.menu_reset:
-			refreshTestGroupsAndLog();
-			return true;
+        ArrayAdapter<TestGroup> adapter = (ArrayAdapter<TestGroup>) mTestGroupSpinner.getAdapter();
+        adapter.clear();
+        adapter.add(new MiscTests());
+        mTestGroupSpinner.setSelection(0);
+        selectTestGroup(0);
+    }
 
-		case R.id.menu_view_log:
-			AlertDialog.Builder logDialogBuilder = new AlertDialog.Builder(this);
-			logDialogBuilder.setTitle("Log");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
 
-			final WebView webView = new WebView(this);
-			
-			String logContent = TextUtils.htmlEncode(mLog.toString()).replace("\n", "<br />");
-			String logHtml = "<html><body><pre>" + logContent + "</pre></body></html>";
-			webView.loadData(logHtml, "text/html", "utf-8");
-			
-			logDialogBuilder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(this, SignalRPreferenceActivity.class));
+                return true;
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-					clipboardManager.setText(mLog.toString());
-				}
-			});
-			
-			final String postContent = mLog.toString();
-			
-			logDialogBuilder.setNeutralButton("Post data", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					new AsyncTask<Void, Void, Void>() {
+            case R.id.menu_run_tests:
+                if (ApplicationContext.getServerUrl().trim().equals("")) {
+                    startActivity(new Intent(this, SignalRPreferenceActivity.class));
+                } else {
+                    runTests();
+                }
+                return true;
 
-						@Override
-						protected Void doInBackground(Void... params) {
-							try {
-								String url = ApplicationContext.getLogPostURL();
-								if (url != null && !url.trim().isEmpty()) {
-									url = url + "?platform=android";
+            case R.id.menu_check_all:
+                changeCheckAllTests(true);
+                return true;
 
-                                    URL dest = new URL(url);
-                                    final HttpURLConnection urlConnection = (HttpURLConnection) dest.openConnection();
-                                    urlConnection.setRequestMethod("POST");
-                                    String postData = URLEncoder.encode("postContent", "UTF-8");
+            case R.id.menu_uncheck_all:
+                changeCheckAllTests(false);
+                return true;
 
-                                    OutputStream os = urlConnection.getOutputStream();
-                                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                                    bufferedWriter.write(postData);
-                                    bufferedWriter.flush();
-                                    bufferedWriter.close();
-                                    urlConnection.disconnect();
-                                    os.close();
-								}
-							} catch (Exception e) {
-								// Wasn't able to post the data. Do nothing
-							}
-							
-							return null;
-						}	
-					}.execute();
-				}
-			});
+            case R.id.menu_reset:
+                refreshTestGroupsAndLog();
+                return true;
 
-			logDialogBuilder.setView(webView);
+            case R.id.menu_view_log:
+                AlertDialog.Builder logDialogBuilder = new AlertDialog.Builder(this);
+                logDialogBuilder.setTitle("Log");
 
-			logDialogBuilder.create().show();
-			return true;
+                final WebView webView = new WebView(this);
 
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+                String logContent = TextUtils.htmlEncode(mLog.toString()).replace("\n", "<br />");
+                String logHtml = "<html><body><pre>" + logContent + "</pre></body></html>";
+                webView.loadData(logHtml, "text/html", "utf-8");
 
-	private void changeCheckAllTests(boolean check) {
-		TestGroup tg = (TestGroup) mTestGroupSpinner.getSelectedItem();
-		List<TestCase> testCases = tg.getTestCases();
+                logDialogBuilder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
 
-		for (TestCase testCase : testCases) {
-			testCase.setEnabled(check);
-		}
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                        clipboardManager.setText(mLog.toString());
+                    }
+                });
 
-		fillTestList(testCases);
-	}
+                final String postContent = mLog.toString();
 
-	private void fillTestList(List<TestCase> testCases) {
-		TestCaseAdapter testCaseAdapter = (TestCaseAdapter) mTestCaseList.getAdapter();
+                logDialogBuilder.setNeutralButton("Post data", new DialogInterface.OnClickListener() {
 
-		testCaseAdapter.clear();
-		for (TestCase testCase : testCases) {
-			testCaseAdapter.add(testCase);
-		}
-	}
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new AsyncTask<Void, Void, Void>() {
 
-	private void runTests() {
-		TestGroup group = (TestGroup) mTestGroupSpinner.getSelectedItem();
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                try {
+                                    String url = ApplicationContext.getLogPostURL();
+                                    if (url != null && !url.trim().isEmpty()) {
+                                        url = url + "?platform=android";
 
-		group.runTests(new TestExecutionCallback() {
+                                        URL dest = new URL(url);
+                                        final HttpURLConnection urlConnection = (HttpURLConnection) dest.openConnection();
+                                        urlConnection.setRequestMethod("POST");
+                                        String postData = URLEncoder.encode("postContent", "UTF-8");
 
-			@Override
-			public void onTestStart(TestCase test) {
-				TestCaseAdapter adapter = (TestCaseAdapter) mTestCaseList.getAdapter();
-				adapter.notifyDataSetChanged();
-				log("TEST START", test.getName());
-			}
+                                        OutputStream os = urlConnection.getOutputStream();
+                                        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                                        bufferedWriter.write(postData);
+                                        bufferedWriter.flush();
+                                        bufferedWriter.close();
+                                        urlConnection.disconnect();
+                                        os.close();
+                                    }
+                                } catch (Exception e) {
+                                    // Wasn't able to post the data. Do nothing
+                                }
 
-			@Override
-			public void onTestGroupComplete(TestGroup group, List<TestResult> results) {
-				log("TEST GROUP COMPLETED", group.getName() + " - " + group.getStatus().toString());
-				logSeparator();
-			}
+                                return null;
+                            }
+                        }.execute();
+                    }
+                });
 
-			@Override
-			public void onTestComplete(TestCase test, TestResult result) {
-				Throwable e = result.getException();
-				String exMessage = "-";
-				if (e != null) {
-					StringBuilder sb = new StringBuilder();
-					while (e != null) {
-						sb.append(e.getClass().getSimpleName()).append(": ");
-						sb.append(e.getMessage());
-						sb.append(" // ");
-						e = e.getCause();
-					}
+                logDialogBuilder.setView(webView);
 
-					exMessage = sb.toString();
-				}
+                logDialogBuilder.create().show();
+                return true;
 
-				final TestCaseAdapter adapter = (TestCaseAdapter) mTestCaseList.getAdapter();
-				
-				runOnUiThread(new Runnable() {
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-					@Override
-					public void run() {
-						adapter.notifyDataSetChanged();
-						
-					}
-					
-				});
-				log("TEST LOG", test.getLog());
-				log("TEST COMPLETED", test.getName() + " - " + result.getStatus().toString() + " - Ex: " + exMessage);
-				logSeparator();
-			}
-		});
+    private void changeCheckAllTests(boolean check) {
+        TestGroup tg = (TestGroup) mTestGroupSpinner.getSelectedItem();
+        List<TestCase> testCases = tg.getTestCases();
 
-	}
+        for (TestCase testCase : testCases) {
+            testCase.setEnabled(check);
+        }
 
-	private void logSeparator() {
-		mLog.append("\n");
-		mLog.append("----\n");
-		mLog.append("\n");
-	}
-	
-	@SuppressWarnings("unused")
-	private void log(String content) {
-		log("Info", content);
-	}
+        fillTestList(testCases);
+    }
 
-	private void log(String title, String content) {
-		String message = title + " - " + content;
-		Log.d("SIGNALR-TESTINTEGRATION", message);
+    private void fillTestList(List<TestCase> testCases) {
+        TestCaseAdapter testCaseAdapter = (TestCaseAdapter) mTestCaseList.getAdapter();
 
-		mLog.append(message);
-		mLog.append('\n');
-	}
+        testCaseAdapter.clear();
+        for (TestCase testCase : testCases) {
+            testCaseAdapter.add(testCase);
+        }
+    }
 
-	
-	/**
-	 * Creates a dialog and shows it
-	 * 
-	 * @param exception
-	 *            The exception to show in the dialog
-	 * @param title
-	 *            The dialog title
-	 */
-	@SuppressWarnings("unused")
-	private void createAndShowDialog(Exception exception, String title) {
-		createAndShowDialog(exception.toString(), title);
-	}
+    private void runTests() {
+        TestGroup group = (TestGroup) mTestGroupSpinner.getSelectedItem();
 
-	/**
-	 * Creates a dialog and shows it
-	 * 
-	 * @param message
-	 *            The dialog message
-	 * @param title
-	 *            The dialog title
-	 */
-	private void createAndShowDialog(String message, String title) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        group.runTests(new TestExecutionCallback() {
 
-		builder.setMessage(message);
-		builder.setTitle(title);
-		builder.create().show();
-	}
+            @Override
+            public void onTestStart(TestCase test) {
+                TestCaseAdapter adapter = (TestCaseAdapter) mTestCaseList.getAdapter();
+                adapter.notifyDataSetChanged();
+                log("TEST START", test.getName());
+            }
+
+            @Override
+            public void onTestGroupComplete(TestGroup group, List<TestResult> results) {
+                log("TEST GROUP COMPLETED", group.getName() + " - " + group.getStatus().toString());
+                logSeparator();
+            }
+
+            @Override
+            public void onTestComplete(TestCase test, TestResult result) {
+                Throwable e = result.getException();
+                String exMessage = "-";
+                if (e != null) {
+                    StringBuilder sb = new StringBuilder();
+                    while (e != null) {
+                        sb.append(e.getClass().getSimpleName()).append(": ");
+                        sb.append(e.getMessage());
+                        sb.append(" // ");
+                        e = e.getCause();
+                    }
+
+                    exMessage = sb.toString();
+                }
+
+                final TestCaseAdapter adapter = (TestCaseAdapter) mTestCaseList.getAdapter();
+
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                });
+                log("TEST LOG", test.getLog());
+                log("TEST COMPLETED", test.getName() + " - " + result.getStatus().toString() + " - Ex: " + exMessage);
+                logSeparator();
+            }
+        });
+
+    }
+
+    private void logSeparator() {
+        mLog.append("\n");
+        mLog.append("----\n");
+        mLog.append("\n");
+    }
+
+    @SuppressWarnings("unused")
+    private void log(String content) {
+        log("Info", content);
+    }
+
+    private void log(String title, String content) {
+        String message = title + " - " + content;
+        Log.d("SIGNALR-TESTINTEGRATION", message);
+
+        mLog.append(message);
+        mLog.append('\n');
+    }
+
+
+    /**
+     * Creates a dialog and shows it
+     *
+     * @param exception The exception to show in the dialog
+     * @param title     The dialog title
+     */
+    @SuppressWarnings("unused")
+    private void createAndShowDialog(Exception exception, String title) {
+        createAndShowDialog(exception.toString(), title);
+    }
+
+    /**
+     * Creates a dialog and shows it
+     *
+     * @param message The dialog message
+     * @param title   The dialog title
+     */
+    private void createAndShowDialog(String message, String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.create().show();
+    }
 
 }

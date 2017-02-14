@@ -7,5 +7,5 @@ See License.txt in the project root for license information.
 package microsoft.aspnet.signalr.client.test.integration.framework;
 
 public enum TestStatus {
-	NotRun, Running, Failed, Passed
+    NotRun, Running, Failed, Passed
 }

@@ -16,9 +16,9 @@ import java.util.Map;
 import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture;
+import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
 import microsoft.aspnet.signalr.client.http.Request;
 import microsoft.aspnet.signalr.client.http.StreamResponse;
-import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
 
 /**
  * Runnable that executes a network operation
@@ -36,15 +36,11 @@ class NetworkRunnable implements Runnable {
 
     /**
      * Initializes the network runnable
-     * 
-     * @param logger
-     *            logger to log activity
-     * @param request
-     *            The request to execute
-     * @param future
-     *            Future for the operation
-     * @param callback
-     *            Callback to invoke after the request execution
+     *
+     * @param logger   logger to log activity
+     * @param request  The request to execute
+     * @param future   Future for the operation
+     * @param callback Callback to invoke after the request execution
      */
     public NetworkRunnable(Logger logger, Request request, HttpConnectionFuture future, ResponseCallback callback) {
         mLogger = logger;
@@ -77,7 +73,7 @@ class NetworkRunnable implements Runnable {
                     mResponseStream = mConnection.getErrorStream();
                 }
             }
-        
+
             if (mResponseStream != null && !mFuture.isCancelled()) {
                 mCallback.onResponse(new StreamResponse(mResponseStream, responseCode, mConnection.getHeaderFields()));
                 mFuture.setResult(null);
@@ -105,7 +101,7 @@ class NetworkRunnable implements Runnable {
             if (mConnection != null) {
                 mConnection.disconnect();
             }
-            
+
             if (mResponseStream != null) {
                 mResponseStream.close();
             }
@@ -115,15 +111,14 @@ class NetworkRunnable implements Runnable {
 
     /**
      * Creates an HttpURLConnection
-     * 
-     * @param request
-     *            The request info
+     *
+     * @param request The request info
      * @return An HttpURLConnection to execute the request
      * @throws java.io.IOException
      */
     static HttpURLConnection createHttpURLConnection(Request request) throws IOException {
         URL url = new URL(request.getUrl());
-        
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(15 * 1000);
         connection.setRequestMethod(request.getVerb());

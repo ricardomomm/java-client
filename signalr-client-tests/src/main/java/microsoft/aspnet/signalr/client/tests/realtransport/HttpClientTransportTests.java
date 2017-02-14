@@ -6,8 +6,7 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.realtransport;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 
 import java.util.UUID;
 
@@ -21,7 +20,8 @@ import microsoft.aspnet.signalr.client.transport.ClientTransport;
 import microsoft.aspnet.signalr.client.transport.DataResultCallback;
 import microsoft.aspnet.signalr.client.transport.NegotiationResponse;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public abstract class HttpClientTransportTests {
 
@@ -51,20 +51,20 @@ public abstract class HttpClientTransportTests {
         Connection connection = new Connection(TestData.SERVER_URL, TestData.CONNECTION_QUERYSTRING, TestData.getLogger());
 
         connection.start(transport).get();
-        
+
         String dataToSend = UUID.randomUUID().toString();
 
         transport.send(connection, dataToSend, new DataResultCallback() {
-            
+
             @Override
             public void onData(String data) {
                 // TODO Auto-generated method stub
-                
+
             }
         }).get();
 
         String lastSentData = TestData.getLastSentData();
-        
+
         assertEquals(dataToSend, lastSentData);
     }
 }

@@ -50,11 +50,9 @@ public class CookieCredentials implements Credentials {
 
     /**
      * Adds a cookie to the credential
-     * 
-     * @param name
-     *            The cookie name
-     * @param value
-     *            The cookie value
+     *
+     * @param name  The cookie name
+     * @param value The cookie value
      */
     public void addCookie(String name, String value) {
         mCookieValues.put(name, value);
@@ -62,9 +60,8 @@ public class CookieCredentials implements Credentials {
 
     /**
      * Removes a cookie from the credential
-     * 
-     * @param name
-     *            The cookie name
+     *
+     * @param name The cookie name
      */
     public void removeCookie(String name) {
         mCookieValues.remove(name);

@@ -6,11 +6,11 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.transport;
 
-import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.ConnectionBase;
 import microsoft.aspnet.signalr.client.Constants;
 import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
+import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnection;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
 import microsoft.aspnet.signalr.client.http.Request;
@@ -29,9 +29,8 @@ public class ServerSentEventsTransport extends HttpClientTransport {
 
     /**
      * Initializes the transport with a logger
-     * 
-     * @param logger
-     *            Logger to log actions
+     *
+     * @param logger Logger to log actions
      */
     public ServerSentEventsTransport(Logger logger) {
         super(logger);
@@ -39,11 +38,9 @@ public class ServerSentEventsTransport extends HttpClientTransport {
 
     /**
      * Initializes the transport with a logger
-     * 
-     * @param logger
-     *            Logger to log actions
-     * @param httpConnection
-     *            HttpConnection for the transport
+     *
+     * @param logger         Logger to log actions
+     * @param httpConnection HttpConnection for the transport
      */
     public ServerSentEventsTransport(Logger logger, HttpConnection httpConnection) {
         super(logger, httpConnection);

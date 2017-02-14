@@ -23,37 +23,37 @@ public class Program {
      * @param args
      */
     public static void main(String[] args) {
-        
+
         if (args.length != 1) {
             System.err.println("There must be one argument with the server url.");
             return;
         }
-        
+
         String serverUrl = args[0];
         JavaTestPlatformContext testPlatformContext = new JavaTestPlatformContext(serverUrl);
         testPlatformContext.setLoggingEnabled(false);
         ApplicationContext.setTestPlatformContext(testPlatformContext);
-        
+
         List<TestGroup> testGroups = new ArrayList<TestGroup>();
         testGroups.add(new MiscTests());
-        
+
         List<TestCase> tests = new ArrayList<TestCase>();
-        
+
         for (TestGroup group : testGroups) {
             for (TestCase test : group.getTestCases()) {
                 tests.add(test);
             }
         }
-        
-        final Scanner scanner = new Scanner (System.in);
+
+        final Scanner scanner = new Scanner(System.in);
         String option = "";
         while (!option.equals("q")) {
             System.out.println("Type a test number to execute the test. 'q' to quit:");
-            
+
             for (int i = 0; i < tests.size(); i++) {
                 System.out.println(i + ". " + tests.get(i).getName());
             }
-            
+
             option = scanner.next();
             if (!option.equals("q")) {
                 int index = -1;
@@ -61,21 +61,21 @@ public class Program {
                     index = Integer.decode(option);
                 } catch (NumberFormatException ex) {
                 }
-                
+
                 if (index > -1 && index < tests.size()) {
                     TestCase test = tests.get(index);
-                    
+
                     test.run(new TestExecutionCallback() {
-                        
+
                         @Override
                         public void onTestStart(TestCase test) {
                             System.out.println("Starting test - " + test.getName());
                         }
-                        
+
                         @Override
                         public void onTestGroupComplete(TestGroup group, List<TestResult> results) {
                         }
-                        
+
                         @Override
                         public void onTestComplete(TestCase test, TestResult result) {
                             String extraData = "";

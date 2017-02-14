@@ -6,27 +6,27 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.mocktransport;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.junit.Test;
 
 import java.util.UUID;
 
 import microsoft.aspnet.signalr.client.Action;
+import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.ConnectionState;
 import microsoft.aspnet.signalr.client.MessageReceivedHandler;
 import microsoft.aspnet.signalr.client.NullLogger;
-import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.tests.util.MockClientTransport;
 import microsoft.aspnet.signalr.client.tests.util.MultiResult;
 import microsoft.aspnet.signalr.client.tests.util.Utils;
 import microsoft.aspnet.signalr.client.transport.NegotiationResponse;
 
-import org.junit.Test;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ConnectionTests {
 

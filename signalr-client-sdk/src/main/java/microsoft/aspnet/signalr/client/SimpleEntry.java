@@ -10,11 +10,9 @@ import java.util.Map.Entry;
 
 /**
  * Simple Entry&lt;K,V&gt; implementation
- * 
- * @param <K>
- *            Key
- * @param <V>
- *            Value
+ *
+ * @param <K> Key
+ * @param <V> Value
  */
 public class SimpleEntry<K, V> implements Entry<K, V> {
     K mKey;
@@ -22,11 +20,9 @@ public class SimpleEntry<K, V> implements Entry<K, V> {
 
     /**
      * Initializes the SimpleEntry
-     * 
-     * @param key
-     *            Entry key
-     * @param value
-     *            Entry value
+     *
+     * @param key   Entry key
+     * @param value Entry value
      */
     public SimpleEntry(K key, V value) {
         mKey = key;

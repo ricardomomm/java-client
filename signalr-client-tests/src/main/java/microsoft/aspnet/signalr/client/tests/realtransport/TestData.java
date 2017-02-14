@@ -21,22 +21,22 @@ public class TestData {
     public static final String HUB_URL = "http://" + SERVER_ADDRESS + "/signalr";
     public static final String CONNECTION_QUERYSTRING = "myVal=1";
     public static final String HUB_NAME = "TestHub";
-    
+
     public static Logger getLogger() {
         return new ConsoleLogger();
     }
-    
+
     public static void triggerTestMessage() throws Exception {
         invokeServerAction("TriggerTestMessage");
     }
-    
+
     public static String getLastSentData() throws Exception {
         return invokeServerAction("LastSentData");
     }
-    
+
     public static String invokeServerAction(String action) throws Exception {
         URL url = new URL("http://" + TestData.SERVER_ADDRESS + "/home/" + action);
-        
+
         URLConnection connection = url.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
@@ -45,9 +45,9 @@ public class TestData {
             sb.append(inputLine);
             sb.append("\n");
         }
-            
+
         in.close();
-        
+
         return sb.toString().trim();
     }
 
@@ -58,7 +58,6 @@ public class TestData {
     public static void triggerHubTestMessage() throws Exception {
         invokeServerAction("TriggerHubTestMessage");
     }
-
 
 
 }

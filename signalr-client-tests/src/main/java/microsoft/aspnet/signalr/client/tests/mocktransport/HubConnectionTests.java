@@ -6,7 +6,13 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.mocktransport;
 
-import static org.junit.Assert.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
+import org.junit.Test;
+
 import microsoft.aspnet.signalr.client.Action;
 import microsoft.aspnet.signalr.client.NullLogger;
 import microsoft.aspnet.signalr.client.hubs.HubConnection;
@@ -17,12 +23,8 @@ import microsoft.aspnet.signalr.client.tests.util.MockClientTransport;
 import microsoft.aspnet.signalr.client.tests.util.MultiResult;
 import microsoft.aspnet.signalr.client.tests.util.Utils;
 
-import org.junit.Test;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HubConnectionTests {
 
@@ -319,7 +321,7 @@ public class HubConnectionTests {
     }
 
     @Test
-    public void setHubConnectionHeaders(){
+    public void setHubConnectionHeaders() {
         HubConnection connection = new HubConnection(SERVER_URL, "", true, new NullLogger());
         connection.getHeaders().put("key", "value");
 

@@ -6,19 +6,19 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.util;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.UUID;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
+import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.ConnectionState;
 import microsoft.aspnet.signalr.client.Constants;
 import microsoft.aspnet.signalr.client.ErrorCallback;
 import microsoft.aspnet.signalr.client.MessageReceivedHandler;
 import microsoft.aspnet.signalr.client.NullLogger;
-import microsoft.aspnet.signalr.client.Connection;
 import microsoft.aspnet.signalr.client.http.HttpConnection;
 import microsoft.aspnet.signalr.client.tests.util.MockHttpConnection.RequestEntry;
 import microsoft.aspnet.signalr.client.transport.ClientTransport;

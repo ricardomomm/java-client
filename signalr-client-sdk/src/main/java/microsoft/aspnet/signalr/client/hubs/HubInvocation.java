@@ -6,9 +6,9 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.hubs;
 
-import java.util.Map;
-
 import com.google.gson.JsonElement;
+
+import java.util.Map;
 
 public class HubInvocation {
     @com.google.gson.annotations.SerializedName("I")

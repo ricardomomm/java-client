@@ -6,9 +6,13 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.http.java;
 
-import microsoft.aspnet.signalr.client.*;
-import microsoft.aspnet.signalr.client.http.*;
+import microsoft.aspnet.signalr.client.LogLevel;
+import microsoft.aspnet.signalr.client.Logger;
+import microsoft.aspnet.signalr.client.Platform;
+import microsoft.aspnet.signalr.client.http.HttpConnection;
+import microsoft.aspnet.signalr.client.http.HttpConnectionFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
+import microsoft.aspnet.signalr.client.http.Request;
 
 /**
  * Java HttpConnection implementation, based on HttpURLConnection and threads
@@ -25,9 +29,8 @@ public class JavaHttpConnection implements HttpConnection {
 
     /**
      * Initializes the JavaHttpConnection
-     * 
-     * @param logger
-     *            logger to log activity
+     *
+     * @param logger logger to log activity
      */
     public JavaHttpConnection(Logger logger) {
         mLogger = logger;

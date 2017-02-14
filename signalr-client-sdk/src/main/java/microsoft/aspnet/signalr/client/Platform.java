@@ -25,9 +25,8 @@ public class Platform {
 
     /**
      * Creates an adequate HttpConnection for the current platform
-     * 
-     * @param logger
-     *            Logger to use with the connection
+     *
+     * @param logger Logger to use with the connection
      * @return An HttpConnection
      */
     public static HttpConnection createHttpConnection(Logger logger) {

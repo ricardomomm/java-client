@@ -6,15 +6,13 @@ See License.txt in the project root for license information.
 
 package microsoft.aspnet.signalr.client.tests.mocktransport;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import microsoft.aspnet.signalr.client.NullLogger;
+import microsoft.aspnet.signalr.client.tests.util.MockConnection;
 import microsoft.aspnet.signalr.client.tests.util.MockHttpConnection;
 import microsoft.aspnet.signalr.client.tests.util.MockHttpConnection.RequestEntry;
-import microsoft.aspnet.signalr.client.tests.util.MockConnection;
 import microsoft.aspnet.signalr.client.tests.util.MultiResult;
 import microsoft.aspnet.signalr.client.tests.util.Sync;
 import microsoft.aspnet.signalr.client.tests.util.TransportType;
@@ -22,6 +20,10 @@ import microsoft.aspnet.signalr.client.tests.util.Utils;
 import microsoft.aspnet.signalr.client.transport.ConnectionType;
 import microsoft.aspnet.signalr.client.transport.DataResultCallback;
 import microsoft.aspnet.signalr.client.transport.LongPollingTransport;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LongPollingTransportTests extends HttpClientTransportTests {
 
