@@ -43,6 +43,14 @@ public interface ClientTransport {
     SignalRFuture<Void> start(ConnectionBase connection, ConnectionType connectionType, DataResultCallback callback);
 
     /**
+     * Aborts the transport
+     *
+     * @return A Future for the operation
+     */
+    SignalRFuture<Void> stop();
+
+
+    /**
      * Sends data using the transport
      *
      * @param connection Connection information to send data

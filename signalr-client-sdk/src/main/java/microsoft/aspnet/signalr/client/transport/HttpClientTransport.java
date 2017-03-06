@@ -15,6 +15,7 @@ import microsoft.aspnet.signalr.client.LogLevel;
 import microsoft.aspnet.signalr.client.Logger;
 import microsoft.aspnet.signalr.client.Platform;
 import microsoft.aspnet.signalr.client.SignalRFuture;
+import microsoft.aspnet.signalr.client.UpdateableCancellableFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnection;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture;
 import microsoft.aspnet.signalr.client.http.HttpConnectionFuture.ResponseCallback;
@@ -32,7 +33,7 @@ public abstract class HttpClientTransport implements ClientTransport {
     protected boolean mStartedAbort = false;
     protected SignalRFuture<Void> mAbortFuture = null;
 
-    private Logger mLogger;
+    protected Logger mLogger;
 
     /**
      * Initializes the HttpClientTransport with a logger
@@ -213,6 +214,10 @@ public abstract class HttpClientTransport implements ClientTransport {
 
     protected void log(Throwable error) {
         mLogger.log(getName() + " - Error: " + error.toString(), LogLevel.Critical);
+    }
+
+    public SignalRFuture<Void> stop(){
+        return new UpdateableCancellableFuture<Void>(null);
     }
 
 }

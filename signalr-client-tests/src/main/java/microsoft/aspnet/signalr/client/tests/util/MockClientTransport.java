@@ -51,6 +51,11 @@ public class MockClientTransport implements ClientTransport {
     }
 
     @Override
+    public SignalRFuture<Void> stop() {
+        return new SignalRFuture<Void>();
+    }
+
+    @Override
     public SignalRFuture<Void> send(ConnectionBase connection, String data, DataResultCallback callback) {
         sendOperation = new TransportOperation();
         sendOperation.future = new SignalRFuture<Void>();

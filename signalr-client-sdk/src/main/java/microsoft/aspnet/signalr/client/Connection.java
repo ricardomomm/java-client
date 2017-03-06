@@ -629,6 +629,8 @@ public class Connection implements ConnectionBase {
 
                 changeState(ConnectionState.Connected, ConnectionState.Reconnecting);
                 onReconnecting();
+
+                mTransport.stop();
             }
 
             mHeartbeatMonitor = new HeartbeatMonitor();
